@@ -4,6 +4,7 @@
   "description": "Express lab",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon src/app.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "jest": {

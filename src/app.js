@@ -28,14 +28,14 @@ function JWTValidation(req, res, next) {
 app.use(express.json());
 // app.use(JWTValidation);
 
-app.use("/api/medium-clients", mediumClientsEndpoint);
-app.use("/api/premium-clients", premiumClientsEndpoint);
+app.use("/api/medium-clients", JWTValidation, mediumClientsEndpoint);
+app.use("/api/premium-clients", JWTValidation, premiumClientsEndpoint);
 
 app.get("/", function (req, res) {
   res.send("Bienvenido a la api de ADA Cars");
 });
 
-app.post("/auth", function (req, res) {
+app.post("/login", function (req, res) {
   const email = req.body.email;
   const exist = users.find((user) => user.email === email);
   if (!exist) {
