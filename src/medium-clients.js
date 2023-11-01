@@ -12,24 +12,27 @@ const mediumClients = [
 ];
 
 router.get("/", function (req, res) {
+  res.status(201).json({ clients: mediumClients });
+});
+
+router.post("/", function (req, res) {
   const data = req.body;
   mediumClients.push(data);
   res.status(201).json({ createdClient: data });
 });
 
-router.post("/", function (req, res) {
-  res.json({ meetings: meetings });
-});
-
 router.put("/:id", function (req, res) {
-  res.status(200).json({ deletedClient: data });
+  const id = req.params.id;
+  const data = req.body;
+  mediumClients[id] = data;
+  res.status(200).json({ updatedClient: mediumClients[id] });
 });
 
 router.delete("/:id", function (req, res) {
   const id = req.params.id;
-  // Get the data from the request
-  mediumClients[id] = data;
-  res.status(200).json({ updatedClient: mediumClients[id] });
+  const deleted = mediumClients[id]
+  mediumClients.splice(id, 1);
+  res.status(200).json({ deletedClient: deleted });
 });
 
 module.exports = router;

@@ -12,24 +12,26 @@ const premiumClients = [
 ];
 
 router.get("/", function (req, res) {
+  res.json({ clients: premiumClients });
+});
+
+router.post("/", function (req, res) {
   const data = req.body;
   premiumClients.push(data);
   res.status(201).json({ createdClient: data });
 });
 
-router.post("/", function (req, res) {
-  res.json({ meetings: meetings });
-});
-
 router.put("/:id", function (req, res) {
-  res.status(200).json({ deletedUser: data });
+  const id = req.params.id;
+  const data = req.body;
+  premiumClients[id] = data;
+  res.status(200).json({ updatedClient: premiumClients[id] });
 });
 
 router.delete("/:id", function (req, res) {
   const id = req.params.id;
-  // Get the data from the request
-  premiumClients[id] = data;
-  res.status(200).json({ updatedClient: premiumClients[id] });
+  const data = premiumClients.splice(id, 1);
+  res.status(200).json({ deletedClient: data });
 });
 
 module.exports = router;
